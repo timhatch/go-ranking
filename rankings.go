@@ -9,14 +9,14 @@ package rankers
 // 5. Fractional. (Ties share the mean of what would have been their ordinal numbers).
 
 // Define a `rankable` interface type. A `rankable` type must provide two methods:
-type rankable interface {
+type Rankable interface {
 	Len() int                // return the number of elements to be ranked
 	RankEqual(int, int) bool // return true if two elements are equal
 }
 
 // Return the standard rankings for elements in a `rankable`
 // e.g. 1, 2, 2, 4, 5
-func StandardRank(d rankable) []float64 {
+func StandardRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
 	var k int
 	for i := range r {
@@ -30,7 +30,7 @@ func StandardRank(d rankable) []float64 {
 
 // Return the modified rankings for elements in a `rankable`
 // e.g. 1, 3, 3, 4, 5
-func ModifiedRank(d rankable) []float64 {
+func ModifiedRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
 	for i := range r {
 		k := i + 1
@@ -44,7 +44,7 @@ func ModifiedRank(d rankable) []float64 {
 
 // Return the dense rankings for elements in a `rankable`
 // e.g. 1, 2, 2, 3, 4
-func DenseRank(d rankable) []float64 {
+func DenseRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
 	var k int
 	for i := range r {
@@ -58,7 +58,7 @@ func DenseRank(d rankable) []float64 {
 
 // Return the Ordinal rankings for elements in a `rankable`
 // e.g. 1, 2, 3, 4, 5
-func OrdinalRank(d rankable) []float64 {
+func OrdinalRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
 	for i := range r {
 		r[i] = float64(i + 1)
@@ -68,7 +68,7 @@ func OrdinalRank(d rankable) []float64 {
 
 // Return the fractional rankings for elements in a `rankable`
 // e.g. 1, 2.5, 2.5, 4, 5
-func FractionalRank(d rankable) []float64 {
+func FractionalRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
 	for i := 0; i < len(r); {
 		var j int
