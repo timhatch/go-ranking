@@ -1,4 +1,4 @@
-package rankings
+package rankers
 
 // Ranking methods from Rosetta Code,
 // Implements the following methods:

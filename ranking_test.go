@@ -1,4 +1,4 @@
-package rankings
+package rankers
 
 import (
 	"reflect"
