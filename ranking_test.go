@@ -21,9 +21,9 @@ func (s scores) Less(i, j int) bool {
 }
 
 var data = scores{
+	{42, "Errol"},
 	{44, "Solomon"},
 	{42, "Jason"},
-	{42, "Errol"},
 	{41, "Garry"},
 	{41, "Bernard"},
 	{41, "Barry"},

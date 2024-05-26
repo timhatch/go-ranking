@@ -1,5 +1,9 @@
 package rankers
 
+import (
+	"sort"
+)
+
 // Ranking methods from Rosetta Code,
 // Implements the following methods:
 // 1. Standard. (Ties share what would have been their first ordinal number).
@@ -8,16 +12,23 @@ package rankers
 // 4. Ordinal. ((Competitors take the next available integer. Ties are not treated otherwise).
 // 5. Fractional. (Ties share the mean of what would have been their ordinal numbers).
 
-// Define a `rankable` interface type. A `rankable` type must provide two methods:
+// Define a `rankable` interface type.
+// A `rankable` type must provide two methods:
 type Rankable interface {
+	// For rank allocation
 	Len() int                // return the number of elements to be ranked
 	RankEqual(int, int) bool // return true if two elements are equal
+	// FOr initial sorting
+	Swap(int, int)      // swap elemenes within a Rankable array
+	Less(int, int) bool // return true if element i < j
 }
 
 // Return the standard rankings for elements in a `rankable`
 // e.g. 1, 2, 2, 4, 5
 func StandardRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
+	sort.Sort(d)
+
 	var k int
 	for i := range r {
 		if i == 0 || !d.RankEqual(i, i-1) {
@@ -32,6 +43,8 @@ func StandardRank(d Rankable) []float64 {
 // e.g. 1, 3, 3, 4, 5
 func ModifiedRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
+	sort.Sort(d)
+
 	for i := range r {
 		k := i + 1
 		for j := i + 1; j < len(r) && d.RankEqual(i, j); j++ {
@@ -46,6 +59,8 @@ func ModifiedRank(d Rankable) []float64 {
 // e.g. 1, 2, 2, 3, 4
 func DenseRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
+	sort.Sort(d)
+
 	var k int
 	for i := range r {
 		if i == 0 || !d.RankEqual(i, i-1) {
@@ -60,6 +75,8 @@ func DenseRank(d Rankable) []float64 {
 // e.g. 1, 2, 3, 4, 5
 func OrdinalRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
+	sort.Sort(d)
+
 	for i := range r {
 		r[i] = float64(i + 1)
 	}
@@ -70,6 +87,7 @@ func OrdinalRank(d Rankable) []float64 {
 // e.g. 1, 2.5, 2.5, 4, 5
 func FractionalRank(d Rankable) []float64 {
 	r := make([]float64, d.Len())
+	sort.Sort(d)
 
 	for i := 0; i < d.Len(); {
 		j := i + 1
