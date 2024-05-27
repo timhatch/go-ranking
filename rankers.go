@@ -5,8 +5,10 @@ package rankers
 // 1. Standard. (Ties share what would have been their first ordinal number).
 // 2. Modified. (Ties share what would have been their last ordinal number).
 // 3. Dense. (Ties share the next available integer).
-// 4. Ordinal. ((Competitors take the next available integer. Ties are not treated otherwise).
-// 5. Fractional. (Ties share the mean of what would have been their ordinal numbers).
+// 4. Ordinal. ((Competitors take the next available integer. Ties are not
+//    treated otherwise).
+// 5. Fractional. (Ties share the mean of what would have been their ordinal
+//    numbers).
 
 // Define a `rankable` interface type.
 // A `rankable` type must provide two methods:
